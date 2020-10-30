@@ -1,4 +1,6 @@
 const express = require("express")
+const bodyParser = require('body-parser')
+const cors = require('cors')
 const app = express()
 const mysql = require("mysql")
 
@@ -9,12 +11,34 @@ const db = mysql.createPool({
     database: "smarkioDatabase",
 });
 
-app.get("/", (req, res) => {
-    const sqlInsert = "INSERT INTO comments (comment, name) VALUES ('good', 'pedro alm');"
-    db.query(sqlInsert, (err, result) =>{
-        res.send("hello world")
+app.use(cors());
+app.use(express.json());
 
+app.use(bodyParser.urlencoded({extended: true}));
+
+app.get("/api/get", (req, res) =>{
+    const sqlSelect = 
+    "SELECT * FROM comments";
+    db.query(sqlSelect, (err, result) => {
+        res.send(result)
+    
+});
+})
+
+app.post("/api/insert", (req, rest) => {
+
+    const comment = req.body.comment;
+
+
+    const sqlInsert = 
+    "INSERT INTO comments (comment) VALUES (?)";
+    db.query(sqlInsert, [comment], (err, result) => {
+        console.log(err)
     })
+})
+
+app.get("/", (req, res) => {
+  
 });
 
 app.listen(4000, () => {
