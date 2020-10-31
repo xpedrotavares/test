@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import './App.css';
 
-
 function App() {
   const [comment, setComment] = useState('')
   const [commenList, setCommentList] = useState([])
