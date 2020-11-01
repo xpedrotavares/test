@@ -8,10 +8,12 @@ function App() {
   useEffect(() => {
     Axios.get('http://localhost:4000/api/get').then((response) => {
       setCommentList(response.data)
+      
     })
   }, [])
 
-  const submitComment = () => {
+  const submitComment = (event) => {
+    event.preventDefault();
     Axios.post('http://localhost:4000/api/insert', {
       comment: comment
     }).then(() => {

@@ -41,27 +41,7 @@ textToSpeech.getVoice(getVoiceParams)
     console.log('error:', err);
   });
 
-  
-  const synthesizeParams = {
-
-  text: '{Hello world, I slay!}',
-  accept: 'audio/wav',
-  voice: 'en-US_AllisonV3Voice',
-};
  
-textToSpeech.synthesize(synthesizeParams)
-  .then(response => {
-    const audio = response.result;
-    audio.pipe(fs.createWriteStream('hello_world.mp3'));
-})
-  .then(buffer => {
-    fs.writeFileSync('hello_world.wav', buffer);
-  })
-  .catch(err => {
-    console.log('error:', err);
-  });
-
-
 
 
 
@@ -73,21 +53,66 @@ app.get("/api/get", (req, res) =>{
         res.send(result)
     
 });
+
 })
 
 app.post("/api/insert", (req, rest) => {
 
     const comment = req.body.comment;
-
+    const test = req.query
+    console.log(`aqquuuuuiiiii ${test}`)
 
     const sqlInsert = 
-    "INSERT INTO comments (comment) VALUES (?)";
+    `INSERT INTO comments (comment) VALUES ("${comment}")`;
     db.query(sqlInsert, [comment], (err, result) => {
         console.log(err)
 
 
     })
+
+
+const synthesizeParams = {
+
+    text: comment,
+    accept: 'audio/wav',
+    voice: 'en-US_AllisonV3Voice',
+  };
+
+  textToSpeech.synthesize(synthesizeParams)
+  .then(response => {
+    const audio = response.result;
+    audio.pipe(fs.createWriteStream(`${comment}.mp3`));
 })
+  .then(buffer => {
+    fs.writeFileSync('hello_world.wav', buffer);
+  })
+  .catch(err => {
+    console.log('error:', err);
+  });
+})
+
+// app.get("/api/get", async (req, res, next) => {
+//     const comment = req.body.comment;
+//     const params = {
+//       text: comment,
+//       accept: "audio/webm",
+//       voice: "pt-BR_IsabelaVoice",
+//     };
+//     try {
+//       const { result } = await textToSpeech.synthesize(params).catch((err) => {
+//         console.log("error:", err);
+//       });
+//       const transcript = result;
+//       transcript.pipe(res);
+//     } catch (error) {
+//       res.send(error);
+//     }
+//   });
+
+ 
+
+
+
 
 app.get("/", (req, res) => {
   
