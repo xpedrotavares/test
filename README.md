@@ -16,5 +16,14 @@ Para rodar essa aplicação localmente você precisará:
 4. Rodar o comando "**npm start**" em **/client** e "**npm run devStart**" em **/server**.
 
 
+- [x] Utilização do **Node.js**
+- [x] Utilização de **banco de dados MySQL**.
+- [x] Utilização da **API Text to Speech do IBM Watson**.
+- [x] Utilização de **AJAX**.
+- [x] Cadastro de novos comentarios.
+- [x] Listagem de comentários a direta da tela.
+- [ ] Botão ao lado de cada comentário listado para ouvir o comentário.
+_É obtida a resposta da API com um .mp3 com o comentário falado que fica salvo em /server. Mas, infelizmente, não consegui enviar este comentário para o front. Foi um teste super desafiador pra mim. Gostei de fazer, mas foi bem desafiador! ;c_
+
 
 ***Leve em consideração que este teste foi feito por um desenvolvedor júnior com menos de 1 ano de experiência na área de Desenvolvimento Web e que não havia estudado, até então, bancos de dados que não fossem no-sql.
